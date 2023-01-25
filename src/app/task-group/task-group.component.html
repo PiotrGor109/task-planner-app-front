@@ -1,0 +1,41 @@
+<div class="page-backgorund">
+  <div class="title">List of task groups:</div>
+  <div class="list-taskgroups" *ngFor="let taskgroup of taskgroups">
+    <div>{{taskgroup.id}}. {{taskgroup.taskGroupName}}</div>
+      <div class="buttons-alignment">
+        <a (click)=showEditWindow(taskgroup) class="edit-button" data-toggle="modal" data-target="#exampleModal" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+        <a (click)="onDeleteTaskGroup(taskgroup.id)" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+      </div>
+  </div>
+
+  <!--  ADDING NEW TASK GROUP-->
+  <div class="add-new-menu">
+    <form  class="container" #form="ngForm" (ngSubmit)="onAddTaskGroup()">
+        <label for="inputTaskGroupName"><b>Add new task-group:</b></label>
+        <input class="input-add-new-taskgroup" id="inputTaskGroupName" name="taskGroupName" type="text" required placeholder="Task group name" [(ngModel)]="model.taskGroupName">
+        <button class="button-add-new-taskgroup" type="submit" [disabled]="form.invalid">Add new</button>
+    </form>
+  </div>
+
+<!-- Modal window EDIT-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <form #editForm="ngForm">
+          <h5 class="modal-title" id="exampleModalLabel">Edit task group with Id: <b>{{modelEdit.id}}</b></h5>
+          <div class="form-group">
+            <label for="inputTaskGroupName2"></label>
+            <input type="text" ngModel="{{modelEdit.taskGroupName}}" name="taskGroupName" class="form-control" id="inputTaskGroupName2" aria-describedby="title" placeholder="Task group name">
+            <input class="form-control" name="id" ngModel="{{modelEdit.id}}" id="id" [defaultValue]="modelEdit.id" type="hidden">
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+            <button (click)="onEditTaskGroup(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,67 @@
+.page-backgorund{
+  background-color: #ffee8c;
+  box-shadow: 0 0 10px 1px rgb(0 0 0);
+  min-height: 1000px;
+  padding: 20px;
+}
+
+.list-taskgroups {
+  margin: 15px auto;
+  padding: 10px;
+  font-size: 20px;
+  width: 50%;
+  background-color: #bbbbbb;
+  position: relative;
+  display: flex;
+  border-radius: 15px;
+}
+
+.title {
+  margin: 20px auto;
+  padding: 20px;
+  font-size: 24px;
+  width: 50%;
+  position: relative;
+  display: flex;
+  background-color: goldenrod;
+  border-radius: 15px;
+}
+
+.edit-button {
+  display: flex;
+  position: relative;
+  padding: 10px;
+}
+
+.buttons-alignment {
+  position: relative;
+  display: flex;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.add-new-menu {
+  background-color: goldenrod;
+  display: flex;
+  position: relative;
+  padding: 5px;
+  border-radius: 20px;
+  width: 15%;
+  margin: 60px 60%;
+}
+
+.button-add-new-taskgroup {
+  background-color: #666;
+  color: #bbbbbb;
+  border-radius: 15px;
+  border-color: #111111;
+  display: inline-block;
+}
+
+.input-add-new-taskgroup{
+  margin-bottom: 5px;
+  display: flex;
+  border-radius: 15px;
+  max-width: 200px;
+}
+

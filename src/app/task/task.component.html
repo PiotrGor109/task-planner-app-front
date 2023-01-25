@@ -1,0 +1,117 @@
+<div class="page-backgorund">
+  <div class="go-to-date-panel">
+    <input id="goToDateValue" type="date" placeholder="date" [(ngModel)]="actualDateGoTo">
+    <button class="button-date" type="button"  data-toggle="modal" (click)="goToDate(actualDateGoTo)">
+      Go to date
+    </button>
+  </div>
+
+  <div class="title"> <i style="text-align: left" (click)="previousDay(actualDate)" class="bi bi-caret-left-fill"></i> List of tasks in: {{dateShow}} <i style="text-align: right" (click)="nextDay(actualDate)" class="bi bi-caret-right-fill"></i></div>
+  <div class="list-tasks-titles"><p style="width: 5%">ID</p> <p style="width: 25%">TaskName</p> <p style="width: 30%">TaskDate</p> <p style="width: 20%">TaskGroupName</p> <p style="width: 10%">isDone</p><p style="width: 10%"></p></div>
+  <ng-container *ngFor="let task of tasks">
+  <div class="list-tasks">
+    <p style="width: 5%">{{task.id}}.</p>
+    <p style="width: 25%; word-break: break-all">{{task.taskName}}</p>
+    <p style="width: 30%">{{task.taskDate}}</p>
+    <p style="width: 20%">{{task.group.taskGroupName}}</p>
+    <p style="width: 10%; font-size: 25px"><i style="color: green" *ngIf="task.done==true" class="bi bi-check2"></i><i style="color: red" *ngIf="task.done==false" class="bi bi-x"></i></p>
+    <p (click)="showEditWindowTask(task)" style="width: 3%"><a class="edit-button" data-toggle="modal" data-target="#ModalEdit" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a></p>
+    <p (click)="onDeleteTask(task.id)" style="width: 3%"><a class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a></p>
+    <p (click)="onShowDescription(task)" style="width: 3%"><a class="edit-button" data-toggle="modal" data-target="#ModalDescription"  data-placement="top" data-original-title="Description"><i class="bi bi-info-circle-fill"></i></a></p>
+  </div>
+  </ng-container>
+  <button type="button" class="btn-btn-primary-button" data-toggle="modal" data-target="#exampleModal">
+    Add new Task
+  </button>
+
+
+
+
+  <!-- Modal window EDIT TASK-->
+  <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <form #editForm="ngForm">
+            <h5 class="modal-title" id="exampleModalLabelEdit">Edit task with Id: <b>{{modelEdit.id}}</b></h5>
+            <div class="form-group">
+              <div>
+                <br>
+              <label for="addTaskName">Task name:</label>
+              <input type="text" [(ngModel)]="modelEdit.taskName" id="addTaskName" name="taskName" class="form-control"  placeholder="Task name">
+              </div>
+              <input class="form-control" name="id" [(ngModel)]="modelEdit.id" id="id" [defaultValue]="modelEdit.id" type="hidden" placeholder="id">
+              <br>
+              <label for="addDescription">Description:</label>
+              <input type="text" [(ngModel)]="modelEdit.description" name="description" id="addDescription" class="form-control"  placeholder="Task description">
+              <br>
+              <input type="datetime-local" [(ngModel)]="modelEdit.taskDate" name="taskDate" class="form-control"  placeholder="Task date">
+              <br>
+              <select required [(ngModel)]="group.taskGroupName" name="taskGroupName" id="selectedGroup">
+                <option *ngFor="let taskgroup of taskGroupsSelect" [ngValue]="taskgroup.taskGroupName">{{taskgroup.taskGroupName}}</option>
+              </select>
+              <input type="text" [(ngModel)]="group.id" [defaultValue]="" class="form-control" name="group.id" type="hidden">
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+              <button (click)="onEditTask(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!--  MODAL WINDOW ADD TASK-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <form #form="ngForm">
+            <div class="form-group">
+              <input required type="text" [(ngModel)]="modelAdd.taskName" class="form-control" name="taskName" placeholder="Task name">
+              <input required type="datetime-local" [(ngModel)]="modelAdd.taskDate" class="form-control" name="taskDate"  placeholder="taskDate">
+              <input required type="text" [(ngModel)]="modelAdd.description" class="form-control" name="description"  placeholder="description">
+              <select required [(ngModel)]="group.taskGroupName" name="taskGroupName" id="selectGroup">
+                <option *ngFor="let taskgroup of taskGroupsSelect" [ngValue]="taskgroup.taskGroupName">{{taskgroup.taskGroupName}}</option>
+              </select>
+              <input type="text" [(ngModel)]="group.id" [defaultValue]="" class="form-control" name="group.id" type="hidden">
+              <br>
+              <label for="doneCheckbox">Is done: </label>
+              <input style="margin: 5px" type="checkbox" [(ngModel)]="modelAdd.done" checked="true" value="true" name="done" id="doneCheckbox" placeholder="isDone">
+              <br>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="z" data-dismiss="modal" class="btn btn-secondary">Close</button>
+              <button (click)="onAddTask()" type="submit" data-dismiss="modal" class="btn btn-primary" [disabled]="form.invalid">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal window DESCRIPTION -->
+  <div class="modal fade" id="ModalDescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <form #descForm="ngForm">
+            <div class="form-group" >
+              <p><label type="text">ID: <b>{{modelDescription.id}}</b></label></p>
+              <p><label style="word-break: break-all" type="text">Task name: <b>{{modelDescription.taskName}}</b></label></p>
+              <p><label style="word-break: break-all" type="text">Task date: <b>{{modelDescription.taskDate}}</b></label></p>
+              <p><label style="word-break: break-all" type="text">Description: <b>{{modelDescription.description}}</b></label></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="a" data-dismiss="modal" class="btn btn-secondary">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
