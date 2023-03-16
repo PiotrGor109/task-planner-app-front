@@ -4,7 +4,7 @@ Task planner application
 
 Application built in Spring (backened) and Angular (front)
 GET/POST/DELETE/PUT methods supported, database H2
-Now you can plan your tasks every day! Efficiency! non commercial
+
 
 
 
