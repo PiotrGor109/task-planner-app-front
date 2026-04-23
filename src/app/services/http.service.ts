@@ -11,8 +11,8 @@ export class HttpService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private urlTask = "http://localhost:8080/tasks";
-  private urlTaskGroup = "http://localhost:8080/taskgroups";
+  private urlTask = "/api/tasks";
+  private urlTaskGroup = "/api/taskgroups";
 
 
   //TASK METHODS
