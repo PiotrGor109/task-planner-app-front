@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-planner-app-fe
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task-planner-app-fe
+  template:
+    metadata:
+      labels:
+        app: task-planner-app-fe
+    spec:
+      containers:
+        - name: task-planner-app-fe
+          image: harbor.local/library/task-planner-app-front:5
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
